@@ -25,10 +25,10 @@ router.route('/seats').post((req, res) => {
 
   const obj = {
     id: randomId,
-    day: 1,
-    seat: 666,
-    client: 'RANDOMOWY ZIOMEK',
-    email: 'RANDOMOWYZIOMEK@GMAIL.COM',
+    day: day,
+    seat: seat,
+    client: client,
+    email: email,
   };
 
   db.seats.push(obj);
@@ -46,7 +46,7 @@ router.route('/seats/:id').delete((req, res) => {
 
 router.route('/seats/:id').put((req, res) => {
   const dbId = db.seats.find(d => d.id === req.params.id);
-  dbId.day = 'PUT/EDIT TEST';
+  dbId.day = 1;
   dbId.seat = 'TEST';
   dbId.client = 420;
   dbId.email = 69;
