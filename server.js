@@ -4,10 +4,8 @@ const seats = require('./routes/seats.routes');
 const concerts = require('./routes/concerts.routes');
 const cors = require('cors');
 const path = require('path');
-
-
-
 const app = express();
+app.use(express.static(path.join(__dirname, '/client/build')));
 
 app.use(cors())
 app.use(express.urlencoded({extended: true}));
@@ -20,7 +18,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/client/build/index.html'));
 });
 
-app.use(express.static(path.join(__dirname, '/client/build')));
+
 
 app.use((req, res) => {
   res.status(404).send({message: 'NOT FOUND 404'});
