@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
+const app = express();
 
 
 router.route('/seats').get((req, res) =>  {
@@ -14,10 +15,9 @@ router.route('/seats/:id').get((req, res) => {
 router.route('/seats').post((req, res) => {
   const { day, seat, client, email } = req.body;
   let id = req.body;
-
   let randomId = Math.floor(Math.random() * 10000).toString();
 
-  if(!db.concerts.find(d => d.id === randomId)) {
+  if(!db.seats.find(d => d.id === randomId)) {
     id = randomId;
   } else {
     randomId = Math.floor(Math.random() * 10000).toString();
@@ -31,8 +31,15 @@ router.route('/seats').post((req, res) => {
     email: email,
   };
 
-  db.seats.push(obj);
-  res.send({message: 'OK'})
+  if(!db.seats.some((s) => s.day == obj.day && s.seat == obj.seat)) {
+    db.seats.push(obj);
+    res.send({message: 'OK'});
+  }  else  {
+    res.status(409).send({message: 'Reservation is impossible, slot already taken.'});
+  }
+
+  // db.seats.push(obj);
+  // res.send({message: 'OK'})
 });
 
 router.route('/seats/:id').delete((req, res) => {
