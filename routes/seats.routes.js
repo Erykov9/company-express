@@ -33,13 +33,14 @@ router.route('/seats').post((req, res) => {
 
   if(!db.seats.some((s) => s.day == obj.day && s.seat == obj.seat)) {
     db.seats.push(obj);
+    req.io.emit('seatsUpdated', db.seats);
     res.send({message: 'OK'});
   }  else  {
     res.status(409).send({message: 'Reservation is impossible, slot already taken.'});
   }
 
-  // db.seats.push(obj);
-  // res.send({message: 'OK'})
+  db.seats.push(obj);
+  res.send({message: 'OK'})
 });
 
 router.route('/seats/:id').delete((req, res) => {
