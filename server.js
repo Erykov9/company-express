@@ -6,6 +6,7 @@ const cors = require('cors');
 const path = require('path');
 const app = express();
 const socket = require('socket.io');
+const mongoose  = require('mongoose');
 
 app.use(cors())
 app.use(express.urlencoded({extended: true}));
@@ -33,6 +34,13 @@ const server = app.listen(process.env.PORT || 8000, () => {
 
 const io = socket(server);
 
-io.on('connection', (socket) => {
-  console.log('Hello! New socket!', socket.id);
+mongoose.connect('mongodb://localhost:27017/musicCompanyDB', { useNewUrlParser: true, useUnifiedTopology: true })
+const db = mongoose.connection;
+
+db.once('open', () =>  {
+  console.log('Succesfully connected to DATABASE: musicCompanyDB!')
+});
+
+db.on('error', err => {
+  console.log('Error!', err)
 });
