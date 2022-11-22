@@ -34,7 +34,7 @@ const server = app.listen(process.env.PORT || 8000, () => {
 
 const io = socket(server);
 
-mongoose.connect('mongodb://localhost:27017/musicCompanyDB', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb+srv://Erykov9:kodilla2022@musicwebsitedb.ihzwpqr.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
 const db = mongoose.connection;
 
 db.once('open', () =>  {
