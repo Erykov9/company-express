@@ -1,5 +1,4 @@
 import { Alert, Progress } from 'reactstrap';
-
 import Concerts from './../Concerts/Concerts';
 import { useSelector, useDispatch } from 'react-redux';
 import { getConcerts, getRequest, loadConcertsRequest } from '../../../redux/concertsRedux';
@@ -8,11 +7,11 @@ import { useEffect } from 'react';
 const Lineup = () => {
 
   const dispatch = useDispatch();
-  const concerts = useSelector(getConcerts)
+  const concerts = useSelector(getConcerts);
   const request = useSelector(getRequest);
 
   useEffect(() => {
-    dispatch(loadConcertsRequest())
+    dispatch(loadConcertsRequest());
   }, [dispatch]);
 
   if(request.pending) return <Progress animated color="primary" value={50} />; 

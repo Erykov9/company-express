@@ -34,8 +34,16 @@ const server = app.listen(process.env.PORT || 8000, () => {
 
 const io = socket(server);
 
-mongoose.connect('mongodb+srv://Erykov9:kodilla2022@musicwebsitedb.ihzwpqr.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
+const NODE_ENV = process.env.NODE_ENV;
+let dbUri = '';
+
+if(NODE_ENV === 'production') dbUri = 'url to remote db';
+else if(NODE_ENV === 'test') dbUri = 'mongodb://localhost:27017/musicCompanyDBtest';
+else dbUri = 'mongodb://localhost:27017/musicCompanyDB';
+
+mongoose.connect(dbUri, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
+
 
 db.once('open', () =>  {
   console.log('Succesfully connected to DATABASE: musicCompanyDB!')
@@ -44,3 +52,5 @@ db.once('open', () =>  {
 db.on('error', err => {
   console.log('Error!', err)
 });
+
+module.exports = server;
