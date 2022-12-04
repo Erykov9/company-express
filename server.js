@@ -7,8 +7,10 @@ const path = require('path');
 const app = express();
 const socket = require('socket.io');
 const mongoose  = require('mongoose');
+const helmet = require('helmet');
 
-app.use(cors())
+app.use(helmet());
+app.use(cors());
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use((req, res, next) => {
@@ -37,7 +39,7 @@ const io = socket(server);
 const NODE_ENV = process.env.NODE_ENV;
 let dbUri = '';
 
-if(NODE_ENV === 'production') dbUri = 'url to remote db';
+if(NODE_ENV === 'production') dbUri = 'mongodb+srv://Erykov9:kodilla2022@musicwebsitedb.ihzwpqr.mongodb.net/?retryWrites=true&w=majority';
 else if(NODE_ENV === 'test') dbUri = 'mongodb://localhost:27017/musicCompanyDBtest';
 else dbUri = 'mongodb://localhost:27017/musicCompanyDB';
 

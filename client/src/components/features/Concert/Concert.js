@@ -4,6 +4,16 @@ import './Concert.scss';
 
 const Concert = ({ performer, price, genre, day, image, tickets }) => {
   console.log(tickets)
+
+const ob = {
+  a: 1,
+  b: 2,
+}
+const ob2 = {
+  ...ob,
+  a: 0
+}
+console.log(ob2.a, ob2.b)
   
   return(
   <article className="concert">

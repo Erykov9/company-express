@@ -13,6 +13,7 @@ const Lineup = () => {
   useEffect(() => {
     dispatch(loadConcertsRequest());
   }, [dispatch]);
+  console.log(request)
 
   if(request.pending) return <Progress animated color="primary" value={50} />; 
   else if(request.error) return <Alert color="warning">{request.error}</Alert>;
